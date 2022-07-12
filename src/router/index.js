@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {formatRoutes} from '@/utils/routerUtil'
-
+import Element from 'element-ui'
 Vue.use(Router)
+Vue.use(Element)
+
 
 // 不需要登录拦截的路由配置
 const loginIgnore = {

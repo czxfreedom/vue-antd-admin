@@ -96,13 +96,15 @@ const options = {
               component: () => import('@/pages/list/QueryList'),
             },
             {
-              path: 'query/detail/:id',
-              name: '查询详情',
+              path: 'query/detail/:isAdd/:id',
+              name: '查询文章详情',
               meta: {
                 highlight: '/list/query',
                 invisible: true
               },
-              component: () => import('@/pages/Demo')
+              component: () => import('@/pages/detail/ArticleDetail')
+              // component: () => import('@/pages/Demo')
+
             },
             {
               path: 'primary',

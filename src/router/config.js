@@ -88,23 +88,39 @@ const options = {
           component: PageView,
           children: [
             {
-              path: 'query',
-              name: '查询表格',
+              path: 'articles',
+              name: '文章管理',
               meta: {
                 authority: 'queryForm',
               },
-              component: () => import('@/pages/list/QueryList'),
+              component: () => import('@/pages/list/QueryArticle')
+
             },
             {
-              path: 'query/detail/:isAdd/:id',
-              name: '查询文章详情',
+              path: 'article/:isAdd/:id',
+              name: '文章页面',
               meta: {
-                highlight: '/list/query',
+                // highlight: '/list/article',
                 invisible: true
               },
               component: () => import('@/pages/detail/ArticleDetail')
-              // component: () => import('@/pages/Demo')
-
+            },
+            {
+              path: 'dapps',
+              name: 'DAPP管理',
+              meta: {
+                authority: 'queryForm',
+              },
+              component: () => import('@/pages/list/QueryDapp')
+            },
+            {
+              path: 'dapp/:isAdd/:id',
+              name: 'DAPP页面',
+              meta: {
+                // highlight: '/list/dapp',
+                invisible: true
+              },
+              component: () => import('@/pages/detail/DAPP')
             },
             {
               path: 'primary',
@@ -138,6 +154,69 @@ const options = {
                 }
               ]
             }
+          ]
+        },
+        {
+          path: 'system',
+          name: '系统设置',
+          meta: {
+            icon: 'table'
+          },
+          component: PageView,
+          children: [
+            {
+              path: 'articleSettings',
+              name: '文章类型设置',
+              meta: {
+                authority: 'queryForm',
+              },
+              component: () => import('@/pages/systemSetting/QueryArticleSetting')
+
+            },
+            {
+              path: 'articleSetting/:isAdd/:id',
+              name: '文章设置页面',
+              meta: {
+                // highlight: '/list/article',
+                invisible: true
+              },
+              component: () => import('@/pages/detail/ArticleSetting')
+            },
+            {
+              path: 'currencyRateSettings',
+              name: '货币单位设置',
+              meta: {
+                authority: 'queryForm',
+              },
+              component: () => import('@/pages/systemSetting/QueryCurrencyRateSetting')
+            },
+            {
+              path: 'currencyRateSetting/:isAdd/:id',
+              name: '货币单位页面',
+              meta: {
+                // highlight: '/list/dapp',
+                invisible: true
+              },
+              component: () => import('@/pages/systemSetting/CurrencyRateSetting')
+            },
+            {
+              path: 'versions',
+              name: '版本更新设置',
+              meta: {
+                authority: 'queryForm',
+              },
+              component: () => import('@/pages/systemSetting/QueryVersion')
+            },
+            {
+              path: 'version/:isAdd/:id',
+              name: '版本页面',
+              meta: {
+                // highlight: '/list/dapp',
+                invisible: true
+              },
+              component: () => import('@/pages/detail/DAPP')
+            },
+          
           ]
         },
         {

@@ -4,9 +4,9 @@
   "homepage": "https://iczer.github.io/vue-antd-admin",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "serve": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "lint": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service lint",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist -b pages -r https://gitee.com/iczer/vue-antd-admin.git",
     "docs:dev": "vuepress dev docs",
@@ -16,16 +16,18 @@
   "dependencies": {
     "@antv/data-set": "^0.11.4",
     "animate.css": "^4.1.0",
-    "ant-design-vue": "1.7.2",
+    "ant-design-vue": "^1.7.2",
     "axios": "^0.19.2",
     "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
     "date-fns": "^2.14.0",
+    "element-ui": "^2.15.9",
     "enquire.js": "^2.1.6",
     "highlight.js": "^10.2.1",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
+    "typescript": "^4.7.4",
     "viser-vue": "^2.4.8",
     "vue": "^2.6.11",
     "vue-i18n": "^8.18.2",
@@ -68,7 +70,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "vue/no-v-model-argument": 0
+
+    }
   },
   "browserslist": [
     "> 1%",

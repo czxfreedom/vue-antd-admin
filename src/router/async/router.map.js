@@ -55,10 +55,10 @@ const routerMap = {
     icon: 'table',
     component: view.page
   },
-  queryList: {
+  QueryList: {
     path: 'query',
     name: '查询表格',
-    component: () => import('@/pages/list/QueryList')
+    component: () => import('@/pages/list/QueryArticle')
   },
   primaryList: {
     path: 'primary',

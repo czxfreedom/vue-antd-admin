@@ -180,7 +180,7 @@ const options = {
                 // highlight: '/list/article',
                 invisible: true
               },
-              component: () => import('@/pages/detail/ArticleSetting')
+              component: () => import('@/pages/systemSetting/ArticleSetting')
             },
             {
               path: 'currencyRateSettings',
@@ -214,7 +214,7 @@ const options = {
                 // highlight: '/list/dapp',
                 invisible: true
               },
-              component: () => import('@/pages/detail/DAPP')
+              component: () => import('@/pages/systemSetting/Version')
             },
           
           ]

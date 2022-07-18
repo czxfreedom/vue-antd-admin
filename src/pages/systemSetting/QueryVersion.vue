@@ -16,13 +16,13 @@
         </div>
         <div slot="action" slot-scope="{text, record}">
          
-          <router-link :to="`/systemSetting/version/1/${record.key}`" > 编辑 </router-link>
+          <router-link :to="`/system/version/1/${record.key}`" > 编辑 </router-link>
 
 
           <a @click="deleteRecord(record.key)">
             <a-icon type="delete" /> 删除 
           </a>
-          <router-link :to="`/systemSetting/version/0/${record.key}`" > 详情 </router-link>
+          <router-link :to="`/system/version/0/${record.key}`" > 详情 </router-link>
         </div>
         <template slot="statusTitle">
           <a-icon @click.native="onStatusTitleClick" type="info-circle" />
@@ -44,14 +44,13 @@ const columns = [
   },
   {
     title: '版本号',
-    dataIndex: 'versionName',
-  }, 
+    dataIndex: 'versionNumber',
+  },
   
   {
     title: '更新内容',
     dataIndex: 'updateContent',
   },
-  
   {
     title: '版本发布时间',
     dataIndex: 'publishTime',
@@ -90,6 +89,11 @@ const columns = [
   {
     title: '更新时间',
     dataIndex: 'updateTime',
+  },
+  
+   {
+    title: '操作',
+    scopedSlots: { customRender: 'action' }
   }
   ]
 
@@ -170,7 +174,6 @@ export default {
               no: i+1,
               updateTime: list[i].updateTime,
               versionNumber:list[i].versionNumber,
-              versionName:list[i].versionName,
               updateContent:list[i].updateContent,
               forceUpdate:list[i].forceUpdate,
               show:list[i].show,

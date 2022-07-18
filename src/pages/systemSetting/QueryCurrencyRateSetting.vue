@@ -16,13 +16,13 @@
         </div>
         <div slot="action" slot-scope="{text, record}">
          
-          <router-link :to="`/systemSetting/CurrencyRateSetting/1/${record.key}`" > 编辑 </router-link>
+          <router-link :to="`/system/CurrencyRateSetting/1/${record.key}`" > 编辑 </router-link>
 
 
           <a @click="deleteRecord(record.key)">
             <a-icon type="delete" /> 删除 
           </a>
-          <router-link :to="`/systemSetting/CurrencyRateSetting/0/${record.key}`" > 详情 </router-link>
+          <router-link :to="`/system/CurrencyRateSetting/0/${record.key}`" > 详情 </router-link>
         </div>
         <template slot="statusTitle">
           <a-icon @click.native="onStatusTitleClick" type="info-circle" />
@@ -53,6 +53,10 @@ const columns = [
   {
     title: '更新时间',
     dataIndex: 'updateTime',
+  },
+   {
+    title: '操作',
+    scopedSlots: { customRender: 'action' }
   }
   ]
 

@@ -5,6 +5,7 @@ import articleSettingService from "./articleSetting"
 import currencyRateSettingService from "./currencyRateSetting"
 
 import dappService from "./dapp"
+import uploadService from "./upload"
 
 export {
   userService,
@@ -12,5 +13,6 @@ export {
   articleService,
   articleSettingService,
   currencyRateSettingService,
-  dappService
+  dappService,
+  uploadService
 }

@@ -25,4 +25,6 @@ module.exports = {
   GetVersionList: `${GO_BASE_URL}/api/version/list`,
   CreateVersion:  `${GO_BASE_URL}/api/version/create`,
   DeleteVersion:  `${GO_BASE_URL}/api/version/delete`,
+  UploadDApp:  `${GO_BASE_URL}/api/uploadDApp`,
+  UploadArticle:  `${GO_BASE_URL}/api/uploadArticle`,
 }

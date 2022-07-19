@@ -26,14 +26,19 @@
             allow-clear></a-input>
         </a-form-model-item>
       </a-col>
-      <a-col :span="24">
-        <a-form-model-item label="文章内容" prop="content">
-          <a-textarea v-model="formData.content" placeholder="请输入文章内容" :auto-size="{minRows: 4, maxRows: 4}"
-            :style="{width: '100%'}" allow-clear />
-        </a-form-model-item>
-      </a-col>
+  
+    
+    <div>文章内容:</div>
+    <div class="container">
+
+    <Toolbar :editor="editor" :defaultConfig="toolbarConfig" :mode="mode" />
+    <Editor v-model="formData.content" :defaultConfig="editorConfig" :mode="mode" @onCreated="onCreated" />
+
+   
+  </div>
+
       <div v-if="this.$route.params.isAdd =='1'">
-      <a-col :span="18">
+      <!-- <a-col :span="18">
         <a-form-model-item label="上传" prop="upload">
           <a-upload ref="upload" :file-list="uploadfileList" :action="uploadAction"
             :before-upload="uploadBeforeUpload" list-type="picture" accept="image/*">
@@ -42,7 +47,7 @@
             </a-button>
           </a-upload>
         </a-form-model-item>
-      </a-col>
+      </a-col> -->
       
       <a-col :span="5">
         <a-form-model-item prop="submit">
@@ -57,20 +62,31 @@
 </template>
 <script>
 import {getArticleInfo,createArticle,updateArticle} from '@/services/article'
+import {uploadArticle} from '@/services/upload'
 import { message } from 'ant-design-vue';
 import PageHeader from '@/components/page/header/PageHeader'
 
+import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+
+
 export default {
   name:"ArticleDetail",
-  components: {PageHeader},
+  components: {PageHeader,Editor, Toolbar},
   props: [],
   data() {
     return {
+      editor: null,
+      
+      toolbarConfig: {
+        
+      },
+      editorConfig: { MENU_CONF: {}, placeholder: "" },
+      mode: "default", // or 'simple',
       formData: {
         categoryId: 1,
         categoryName:"",
         topic: undefined,
-        content: undefined,
+        content: "",
         isDeleted:undefined,
         upload: null,
         submit: undefined,        
@@ -85,12 +101,8 @@ export default {
           required: true,
           message: '请输入文章主题',
           trigger: 'blur'
-        }],
-        content: [{
-          required: true,
-          message: '请输入文章内容',
-          trigger: 'blur'
-        }],
+        }]
+        
       },
       uploadAction: 'https://jsonplaceholder.typicode.com/posts/',
       uploadfileList: [],
@@ -117,10 +129,99 @@ export default {
     if (this.$route.params.id){
       this.getDetail(this.$route.params.id)
     }
-    
+    this.editorConfig.placeholder = "请输入使用说明内容...";
+    this.editorConfig.MENU_CONF["uploadImage"] = {
+      timeout: 5 * 1000, // 5s
+
+      fieldName: "image",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      maxFileSize: 10 * 1024 * 1024, // 10M
+
+      base64LimitSize: 5 * 1024, // 5kb 以下插入 base64
+
+      onBeforeUpload(files) {
+        return files; // 返回哪些文件可以上传
+        // return false 会阻止上传
+      },
+      onProgress(progress) {
+        console.log("onProgress", progress);
+      },
+      onSuccess(file, res) {
+        console.log("onSuccess", file, res);
+      },
+      onFailed(file, res) {
+        alert(res.message);
+        console.log("onFailed", file, res);
+      },
+      onError(file, err, res) {
+        alert(err.message);
+        console.error("onError", file, err, res);
+      },
+
+      customUpload(file, insertFn) {
+        const formData = new FormData()
+        formData.append('file',file)
+        uploadArticle(formData).then(result=>{
+          if (result.data.status == 0){
+              let url = result.data.data.url; //拼接成可浏览的图片地址
+                insertFn(url, "使用说明", url); //插入图片
+          }
+        }).catch((error)=>{
+          console.log(error);
+        })
+      }
+    },
+    this.editorConfig.MENU_CONF["uploadVideo"] = {
+      timeout: 5 * 1000, // 5s
+
+      fieldName: "video",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      maxFileSize: 10 * 1024 * 1024, // 10M
+
+      base64LimitSize: 5 * 1024, // 5kb 以下插入 base64
+
+      onBeforeUpload(files) {
+        return files; // 返回哪些文件可以上传
+        // return false 会阻止上传
+      },
+      onProgress(progress) {
+        console.log("onProgress", progress);
+      },
+      onSuccess(file, res) {
+        console.log("onSuccess", file, res);
+      },
+      onFailed(file, res) {
+        alert(res.message);
+        console.log("onFailed", file, res);
+      },
+      onError(file, err, res) {
+        alert(err.message);
+        console.error("onError", file, err, res);
+      },
+
+      customUpload(file, insertFn) {
+        const formData = new FormData()
+        formData.append('file',file)
+        uploadArticle(formData).then(result=>{
+          if (result.data.status === 0){
+              let url = result.data.data.url; //拼接成可浏览的图片地址
+                insertFn(url, "使用说明", url); //插入图片
+          }
+        }).catch((error)=>{
+          console.log(error);
+        })
+      }
+    };
   },
   mounted() {},
   methods: {
+     onCreated(editor) {
+      this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
+    },
     submit() {
       console.log("1111111",this.$route,this.$router)
       // this.$refs['elForm'].validate(valid => {
@@ -194,5 +295,5 @@ export default {
 }
 
 </script>
-<style>
-</style>
+
+<style src="@wangeditor/editor/dist/css/style.css"></style>

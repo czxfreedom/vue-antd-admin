@@ -142,7 +142,7 @@ export default {
               categoryName: list[i].categoryName,
               categoryId:list[i].categoryId,
               topic: list[i].topic,
-              content:list[i].content,
+              content:"",
               updateTime: list[i].updateTime,
             })
           }

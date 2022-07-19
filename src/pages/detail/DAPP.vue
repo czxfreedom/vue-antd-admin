@@ -39,7 +39,29 @@
             </a-radio-group>
           </a-form-model-item>
         </a-col>
-        <a-col :span="20" >
+        <a-col :span="24">
+          <div class="clearfix">
+              <a-upload
+                accept=".png,.PNG"
+                list-type="picture-card"
+                :file-list="fileList"
+                :customRequest="customRequest"
+                @preview="handlePreview"
+                @change="handleChange"
+              >
+                <div v-if="fileList.length < 1">
+                  <a-icon type="plus" />
+                  <div class="ant-upload-text">
+                    上传LOGO
+                  </div>
+                </div>
+              </a-upload>
+              <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+                <img alt="example" style="width: 100%" :src="previewImage" />
+              </a-modal>
+          </div>
+      </a-col>
+      <a-col :span="20" >
           <a-row type="flex" justify="end" align="top">
             <a-col :span="3">
               <a-form-model-item label="" prop="field116" v-if="!(this.$route.params.isAdd =='0' && parseInt(this.$route.params.id)>0)">
@@ -54,20 +76,38 @@
 </template>
 <script>
 import {getDappInfo,createDapp,updateDapp} from '@/services/dapp'
-import { message } from 'ant-design-vue';
+import {uploadDApp} from '@/services/upload'
 
+import { message } from 'ant-design-vue';
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 export default {
   name:"DAPP",
   components: {},
   props: [],
   data() {
     return {
+      previewVisible: false,
+      previewImage: '',
+      fileList:[],
+      response : {
+        uid: "",
+        name: "",
+        status: 'done',
+        url: ''
+      },
       formData: {
         name: undefined,
         summary: undefined,
         url: undefined,
         status: 0,
-        logo: "xxx",
+        logo: "",
         isDeleted:1
       },
       rules: {
@@ -111,18 +151,46 @@ export default {
   },
   mounted() {},
   methods: {
+    handleCancel() {
+      this.previewVisible = false;
+    },
+    async handlePreview(file) {
+      if (!file.url && !file.preview) {
+        file.preview = await getBase64(file.originFileObj);
+      }
+      this.previewImage = file.url || file.preview;
+      this.previewVisible = true;
+    },
+    handleChange({ fileList }) {
+      this.fileList = fileList;
+      
+      console.log("fileList",this.fileList)
+    },
+    customRequest(data){
+      this.response.uid = data.file.uid
+      this.response.name = data.file.name
+      this.response.status = 'done'
+      const formData = new FormData()
+      formData.append('file',data.file)
+      uploadDApp(formData).then(result=>{
+        if (result.data.status == 0){
+            data.onProgress({ percent: 100 })
+            this.response.url = result.data.data.url
+            data.onSuccess(this.response, data.file)
+        }
+      }).catch((err)=>{
+        data.onError(err)
+      })
+    },
     submit() {
-      console.log("1111111",this.$route,this.$router)
-      // this.$refs['elForm'].validate(valid => {
-      //   if (!valid) return
-      // })
-      //修改
+      
       if (this.$route.params.id){     
-        // console.log("1111111222")
         this.updateDapp(this.$route.params.id)
       }else{
+        
         this.createDapp()
       }
+      
     },
     submitForm() {
       this.$refs['elForm'].validate(valid => {
@@ -144,19 +212,22 @@ export default {
               this.formData.isDeleted = data.isDeleted
               this.formData.createTime = data.createTime
               this.formData.updateTime = data.updateTime
+              this.fileList.push({
+                uid: '-1',
+                name: 'image.png',
+                status: 'done',
+                url:data.logo,
+              })
           }
-         
-        })
-    },
+    })},
     updateDapp(id){
-      console.log(this.formData,id)
-      updateDapp(parseInt(id),this.formData.name,this.formData.logo,this.formData.summary,this.formData.url,this.formData.status,this.formData.isDeleted).then(
+      updateDapp(parseInt(id),this.formData.name,this.response.url,this.formData.summary,this.formData.url,this.formData.status,this.formData.isDeleted).then(
        result=>{
          
          if (result.data.status == 0){
               message.success("success")
               this.$closePage(this.$route,"/list/dapps")
-              
+          
          }else{
             message.error(result.data.msg)
          }
@@ -164,7 +235,7 @@ export default {
       )
     },
     createDapp(){
-      createDapp(this.formData.name,this.formData.logo,this.formData.summary,this.formData.url,this.formData.status).then(
+      createDapp(this.formData.name,this.response.url,this.formData.summary,this.formData.url,this.formData.status).then(
        result=>{         
          if (result.data.status == 0){
               message.success("success")
@@ -181,4 +252,14 @@ export default {
 
 </script>
 <style>
+/* you can make up upload button and sample style by using stylesheets */
+.ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
 </style>

@@ -27,4 +27,8 @@ module.exports = {
   DeleteVersion:  `${GO_BASE_URL}/api/version/delete`,
   UploadDApp:  `${GO_BASE_URL}/api/uploadDApp`,
   UploadArticle:  `${GO_BASE_URL}/api/uploadArticle`,
+  GetCurrencyInfo: `${GO_BASE_URL}/api/currency/info`,
+  GetCurrencyList: `${GO_BASE_URL}/api/currency/list`,
+  CreateCurrency:  `${GO_BASE_URL}/api/currency/create`,
+  DeleteCurrency:  `${GO_BASE_URL}/api/currency/delete`,
 }

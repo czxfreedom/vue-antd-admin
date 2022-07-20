@@ -106,6 +106,24 @@ const options = {
               component: () => import('@/pages/detail/ArticleDetail')
             },
             {
+              path: 'currencys',
+              name: '币种管理',
+              meta: {
+                authority: 'queryForm',
+              },
+              component: () => import('@/pages/list/QueryCurrency')
+
+            },
+            {
+              path: 'currency/:isAdd/:id',
+              name: '币种页面',
+              meta: {
+                // highlight: '/list/article',
+                invisible: true
+              },
+              component: () => import('@/pages/detail/Currency')
+            },
+            {
               path: 'dapps',
               name: 'DAPP管理',
               meta: {

@@ -1,41 +1,5 @@
 <template>
   <a-card>
-     <div :class="advanced ? 'search' : null">
-      <a-form layout="horizontal">
-        <div :class="advanced ? null: 'fold'">
-          <a-row >
-          <a-col :md="10" :sm="24" >
-            <a-form-item
-              label="DAPP 名称"
-              :labelCol="{span: 5}"
-              :wrapperCol="{span: 18, offset: 1}"
-            >
-              <a-input placeholder="请输入" v-model="name"/>
-            </a-form-item>
-          </a-col>
-          <span> </span>
-          <a-col :md="10" :sm="24" >
-            <a-form-item
-              label="DAPP URL"
-              :labelCol="{span: 6}"
-              :wrapperCol="{span: 16, offset: 1}"
-            >
-              <a-input placeholder="请输入" v-model="url"/>
-            </a-form-item>
-          </a-col>
-        </a-row>
-          
-        </div>
-        <span style="float: right; margin-top: 3px;">
-          <a-button type="primary" @click="getList(1,20)">查询</a-button>
-          <a-button style="margin-left: 8px" @click="reset">重置</a-button>
-          <a @click="toggleAdvanced" style="margin-left: 8px">
-            {{advanced ? '收起' : '展开'}}
-            <a-icon :type="advanced ? 'up' : 'down'" />
-          </a>
-        </span>
-      </a-form>
-    </div>
     <div>
       <a-space class="operator">
         <a-button @click="addNew" type="primary">新建</a-button>
@@ -44,25 +8,25 @@
         :columns="columns"
         :dataSource="dataSource"
         :pagination = "pagination"
+
         @change="onChange"
         @selectedRowChange="onSelectChange"
       >
-      
       <template slot="image-column" slot-scope="{record}">
-        <img :src="record.logo" width="30px"/> <!-- Add your custom elements here -->
+        <img :src="record.images" width="30px"/> <!-- Add your custom elements here -->
       </template>
         <div slot="description" slot-scope="{text}">
-            {{text}}
+          {{text}}
         </div>
         <div slot="action" slot-scope="{text, record}">
          
-          <router-link :to="`/list/dapp/1/${record.key}`" > 编辑 </router-link>
+          <router-link :to="`/list/currency/1/${record.key}`" > 编辑 </router-link>
 
 
           <a @click="deleteRecord(record.key)">
             <a-icon type="delete" /> 删除 
           </a>
-          <router-link :to="`/list/dapp/0/${record.key}`" > 详情 </router-link>
+          <router-link :to="`/list/currency/0/${record.key}`" > 详情 </router-link>
         </div>
         <template slot="statusTitle">
           <a-icon @click.native="onStatusTitleClick" type="info-circle" />
@@ -74,7 +38,7 @@
 
 <script>
 import StandardTable from '@/components/table/StandardTable'
-import {getDappList,deleteDapp} from '@/services/dapp'
+import {getCurrencyList,deleteCurrency} from '@/services/currency'
 import { message } from 'ant-design-vue';
 
 const columns = [
@@ -83,33 +47,35 @@ const columns = [
     dataIndex: 'no'
   },
   {
-    title: 'DAPP 名称',
-    dataIndex: 'name',
+    title: '币种名称',
+    dataIndex: 'currency',
   },
    {
-    title: 'DAPP LOGO',
-    dataIndex: 'logo',
+    title: '币种Logo',
+    dataIndex: 'images',
     scopedSlots: { customRender: "image-column" },
-    
-   },
+  },
    {
-    title: 'DAPP 简介',
-    dataIndex: 'summary',
+    title: '合约地址',
+    dataIndex: 'contractAddress',
   },
   {
-    title: 'DAPP URL',
-    dataIndex: 'url',
+    title: '官网URL',
+    dataIndex: 'officialWebsite',
   },
+  // {
+  //   title: '白皮书',
+  //   dataIndex: 'whitePaper',
+  // },
   {
-    title: 'DAPP 上架状态',
-    dataIndex: 'status',
-    // scopedSlots: { customRender: 'action' },
-    customRender: (text) => {
+    title: '热门',
+    dataIndex: 'hot',
+     customRender: (text) => {
     let name=""
     if (text == 1) {
-      name ="上架"
+      name ="非热门"
     }else if (text==2){
-      name ="下架"
+      name ="热门"
     }
     return {
       children: name
@@ -117,8 +83,8 @@ const columns = [
   }
   },
   {
-    title: '更新时间',
-    dataIndex: 'updateTime',
+    title: '精度',
+    dataIndex: 'decimal',
   },
   {
     title: '操作',
@@ -128,19 +94,9 @@ const columns = [
 
 const dataSource = []
 
-// for (let i = 0; i < 100; i++) {
-//   dataSource.push({
-//     key: i,
-//     no: 'NO ' + i,
-//     description: '这是一段描述',
-//     callNo: Math.floor(Math.random() * 1000),
-//     status: Math.floor(Math.random() * 10) % 4,
-//     updatedAt: '2018-07-26'
-//   })
-// }
 
 export default {
-  name: 'QueryDapp',
+  name: 'QueryCurrency',
   components: {StandardTable},
   data () {
     console.log(111111111)
@@ -149,8 +105,6 @@ export default {
       columns: columns,
       dataSource: dataSource,
       selectedRows: [],
-      url:"",
-      name:"",
       pagination:{
             current: 1,
             pageSize: 20,
@@ -168,10 +122,10 @@ export default {
   },
   created () {
     console.log("created")
-    this.getList(1,20)
+    this.getList(this.pagination.current,this.pagination.pageSize,"","ethereum","",10)
   },
   methods: {
-     pageSizeChange(pageNum, pageSize) {
+    pageSizeChange(pageNum, pageSize) {
       console.log(pageNum,pageSize,"pageSizeChange")
       this.loading = true
       this.pagination.pageSize = pageSize
@@ -183,17 +137,13 @@ export default {
       this.loading = true
       this.pagination.current = pageNum
       this.pagination.pageSize= pageSize
-      this.getList(pageNum,pageSize)
+      this.getList(pageNum,pageSize,"","ethereum","")
     },
+
     deleteRecord(id) {
       // this.dataSource = this.dataSource.filter(item => item.key !== key)
       // this.selectedRows = this.selectedRows.filter(item => item.key !== key)
-        this.deleteDapp(id)
-    },
-    reset(){
-      this.url=""
-      this.name=""
-      this.getList(this.pagination.current,this.pagination.pageSize)
+        this.deleteCurrency(id)
     },
     toggleAdvanced () {
       this.advanced = !this.advanced
@@ -205,13 +155,14 @@ export default {
       // this.$message.info('你点击了状态栏表头')
     },
     onChange() {
+      
       // this.$message.info('表格状态改变了')
     },
     onSelectChange() {
       // this.$message.info('选中行改变了')
     },
     addNew () {
-      this.$router.push('/list/dapp/1/0')
+      this.$router.push('/list/currency/1/0')
       // this.dataSource.unshift({
       //   key: this.dataSource.length,
       //   no: 'NO ' + this.dataSource.length,
@@ -221,34 +172,31 @@ export default {
       //   updatedAt: '2018-07-26'
       // })
     },
-    trim(s){
-      return s.replace(/(^\s*)|(\s*$)/g, "");
-    },
-    getList(pageNum,pageSize){
-        getDappList(pageNum,pageSize,this.trim(this.url),this.trim(this.name)).then(result => {
-          this.dataSource=[]
+    getList(pageNum,pageSize,currency,contractType,contractAddress,hot){
+        getCurrencyList(pageNum,pageSize,currency,contractType,contractAddress,hot).then(result => {
+          this.dataSource = []
           var list = result.data.data.list
           this.total = result.data.data.total
           this.pagination.total = this.total
-          console.log(list)
-          console.log(this.total)
           for (let i = 0; i < list.length; i++) {
+            console.log(list[i].id)
             this.dataSource.push({
               key: list[i].id,
               no: i+1,
-              name: list[i].name,
-              logo:list[i].logo,
-              summary:list[i].summary,
-              url:list[i].url,
-              status:list[i].status,
-              isDeleted:list[i].isDeleted,
+              currency: list[i].currency,
+              images:list[i].images,
+              contractAddress: list[i].contractAddress,
+              hot:list[i].hot,
+              whitePaper:list[i].whitePaper,
+              decimal:list[i].decimal,
               updateTime: list[i].updateTime,
+              officialWebsite:list[i].officialWebsite
             })
           }
         })
     },
-    deleteDapp(id){
-      deleteDapp(id).then(result=>{
+    deleteCurrency(id){
+      deleteCurrency(id).then(result=>{
         if (result.data.status == 0){
             message.success("success");
         }else{

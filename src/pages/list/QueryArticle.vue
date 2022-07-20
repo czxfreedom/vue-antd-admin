@@ -7,7 +7,8 @@
       <standard-table
         :columns="columns"
         :dataSource="dataSource"
-        
+        :pagination = "pagination"
+
         @change="onChange"
         @selectedRowChange="onSelectChange"
       >
@@ -86,7 +87,17 @@ export default {
       advanced: true,
       columns: columns,
       dataSource: dataSource,
-      selectedRows: []
+      selectedRows: [],
+      pagination:{
+            current: 1,
+            pageSize: 20,
+            showSizeChanger: true,
+            total: this.total,
+            pageSizeOptions: ['5', '10', '20', '30', '50'],
+            showTotal: (total) => `共 ${total} 条数据`,
+            onShowSizeChange: this.pageSizeChange,
+            onChange: this.pageChange,
+            }
     }
   },
   authorize: {
@@ -94,9 +105,24 @@ export default {
   },
   created () {
     console.log("created")
-    this.getList(1,20)
+    this.getList(this.pagination.current,this.pagination.pageSize)
   },
   methods: {
+    pageSizeChange(pageNum, pageSize) {
+      console.log(pageNum,pageSize,"pageSizeChange")
+      this.loading = true
+      this.pagination.pageSize = pageSize
+      this.pagination.current = pageNum
+      this.getList(pageNum,pageSize)
+    },
+    pageChange(pageNum, pageSize) {
+      console.log(pageNum,pageSize,"pageChange")
+      this.loading = true
+      this.pagination.current = pageNum
+      this.pagination.pageSize= pageSize
+      this.getList(pageNum,pageSize)
+    },
+
     deleteRecord(id) {
       // this.dataSource = this.dataSource.filter(item => item.key !== key)
       // this.selectedRows = this.selectedRows.filter(item => item.key !== key)
@@ -112,6 +138,7 @@ export default {
       // this.$message.info('你点击了状态栏表头')
     },
     onChange() {
+      
       // this.$message.info('表格状态改变了')
     },
     onSelectChange() {
@@ -130,11 +157,10 @@ export default {
     },
     getList(pageNum,pageSize){
         getArticleList(pageNum,pageSize).then(result => {
-          
+          this.dataSource = []
           var list = result.data.data.list
           this.total = result.data.data.total
-          console.log(list)
-          console.log(this.total)
+          this.pagination.total = this.total
           for (let i = 0; i < list.length; i++) {
             this.dataSource.push({
               key: list[i].id,

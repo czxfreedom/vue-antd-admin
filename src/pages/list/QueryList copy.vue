@@ -99,6 +99,7 @@
         @clear="onClear"
         @change="onChange"
         @selectedRowChange="onSelectChange"
+
       >
         <div slot="description" slot-scope="{text}">
           {{text}}

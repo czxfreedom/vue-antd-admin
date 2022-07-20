@@ -5,7 +5,7 @@
         <img alt="logo" class="logo" src="@/assets/img/logo.png" />
         <span class="title">{{systemName}}</span>
       </div>
-      <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+      <!-- <div class="desc">FPocket 后台管理系统</div> -->
     </div>
     <div class="login">
       <a-form @submit="onSubmit" :form="form">
@@ -57,16 +57,17 @@
         <div>
           <a-checkbox :checked="true" >自动登录</a-checkbox>
           <a style="float: right">忘记密码</a>
+          <router-link  to="/dashboard/workplace" >注册账户</router-link>
         </div>
         <a-form-item>
           <a-button :loading="logging" style="width: 100%;margin-top: 24px" size="large" htmlType="submit" type="primary">登录</a-button>
         </a-form-item>
         <div>
-          其他登录方式
+          <!-- 其他登录方式
           <a-icon class="icon" type="alipay-circle" />
           <a-icon class="icon" type="taobao-circle" />
-          <a-icon class="icon" type="weibo-circle" />
-          <router-link style="float: right" to="/dashboard/workplace" >注册账户</router-link>
+          <a-icon class="icon" type="weibo-circle" /> -->
+          
         </div>
       </a-form>
     </div>
@@ -111,6 +112,7 @@ export default {
     afterLogin(res) {
       this.logging = false
       const loginRes = res.data
+      console.log(loginRes,115)
       if (loginRes.code >= 0) {
         const {user, permissions, roles} = loginRes.data
         this.setUser(user)

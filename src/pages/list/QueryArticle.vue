@@ -20,7 +20,7 @@
           <router-link :to="`/list/article/1/${record.key}`" > 编辑 </router-link>
 
 
-          <a @click="deleteRecord(record.key)">
+          <a @click="deleteRecord(record.key)" v-auth="`delete`">
             <a-icon type="delete" /> 删除 
           </a>
           <router-link :to="`/list/article/0/${record.key}`" > 详情 </router-link>

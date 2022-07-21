@@ -1,5 +1,49 @@
 <template>
   <a-card>
+    <div :class="advanced ? 'search' : null">
+      <a-form layout="horizontal">
+        <div :class="advanced ? null: 'fold'">
+          <a-row >
+          
+          <a-col :md="5" :sm="24">
+            <a-form-model-item label="合约类型" :labelCol="{span: 6}"
+              :wrapperCol="{span: 10}" prop="contractType">
+              <a-select v-model="formData.contractType" placeholder="请选择合约类型" allow-clear >
+                <a-select-option v-for="(item, index) in contractTypeOptions" :key="index" :value="item.value"
+                  :disabled="item.disabled">{{item.label}}</a-select-option>
+              </a-select>
+            </a-form-model-item>
+          </a-col>
+          <a-col :md="13" :sm="24" >
+            <a-form-item
+              label="币种或合约地址"
+              :labelCol="{span: 10}"
+              :wrapperCol="{span: 13}" prop="data"
+            >
+              <a-input placeholder="请输入合约地址或币种名" v-model="formData.data"/>
+            </a-form-item>
+          </a-col>
+          <!-- <a-col :md="5" >
+            <a-form-model-item label="是否热门" prop="hot" :labelCol="{span: 10}"
+              :wrapperCol="{span: 13}" >
+              <a-select v-model="formData.hot" placeholder="全部" allow-clear >
+                <a-select-option v-for="(item, index) in hotOptions" :key="index" :value="item.value"
+                  :disabled="item.disabled">{{item.label}}</a-select-option>
+              </a-select>
+            </a-form-model-item>
+          </a-col> -->
+        </a-row>
+          
+        </div>
+        <span style="float: right; margin-top: 3px;">
+          <a-button type="primary" @click="getList(1,20)">查询</a-button>
+          <a @click="toggleAdvanced" style="margin-left: 8px">
+            {{advanced ? '收起' : '展开'}}
+            <a-icon :type="advanced ? 'up' : 'down'" />
+          </a>
+        </span>
+      </a-form>
+    </div>
     <div>
       <a-space class="operator">
         <a-button @click="addNew" type="primary">新建</a-button>
@@ -21,7 +65,6 @@
         <div slot="action" slot-scope="{text, record}">
          
           <router-link :to="`/list/currency/1/${record.key}`" > 编辑 </router-link>
-
 
           <a @click="deleteRecord(record.key)">
             <a-icon type="delete" /> 删除 
@@ -101,10 +144,69 @@ export default {
   data () {
     console.log(111111111)
     return {
-      advanced: true,
+      advanced: false,
       columns: columns,
       dataSource: dataSource,
       selectedRows: [],
+      formData:{
+        data:"",
+        contractType:"ethereum",
+        hot:0,
+      },
+      rules: {
+        hot: [{
+          required: true,
+          message: '请选择热门类型',
+          trigger: 'change'
+        }],
+        currency: [{
+          required: true,
+          message: '请输入币种名称',
+          trigger: 'blur'
+        }],
+        contractType: [{
+          required: true,
+          message: '请选择合约类型',
+          trigger: 'change'
+        }],
+        contractAddress: [{
+          required: true,
+          message: '请输入合约地址',
+          trigger: 'blur'
+        }],
+      },
+      contractTypeOptions: [{
+        "label": "ethereum",
+        "value": "ethereum"
+      }, {
+        "label": "tron",
+        "value": "tron"
+      }, {
+        "label": "bscscan",
+        "value": "bscscan"
+      }, {
+        "label": "hecochain",
+        "value": "hecochain"
+      }, {
+        "label": "algorand",
+        "value": "algorand"
+      }, {
+        "label": "solana",
+        "value": "solana"
+      }, {
+        "label": "polygonscan",
+        "value": "polygonscan"
+      }],
+      hotOptions: [{
+        "label": "全部",
+        "value": 0
+      }, {
+        "label": "热门",
+        "value": 2
+      }, {
+        "label": "非热门",
+        "value": 1
+      }],
       pagination:{
             current: 1,
             pageSize: 20,
@@ -122,7 +224,7 @@ export default {
   },
   created () {
     console.log("created")
-    this.getList(this.pagination.current,this.pagination.pageSize,"","ethereum","",10)
+    this.getList( this.pagination.current,this.pagination.pageSize)
   },
   methods: {
     pageSizeChange(pageNum, pageSize) {
@@ -137,7 +239,7 @@ export default {
       this.loading = true
       this.pagination.current = pageNum
       this.pagination.pageSize= pageSize
-      this.getList(pageNum,pageSize,"","ethereum","")
+      this.getList(pageNum,pageSize)
     },
 
     deleteRecord(id) {
@@ -172,8 +274,10 @@ export default {
       //   updatedAt: '2018-07-26'
       // })
     },
-    getList(pageNum,pageSize,currency,contractType,contractAddress,hot){
-        getCurrencyList(pageNum,pageSize,currency,contractType,contractAddress,hot).then(result => {
+    getList(page,pageNumber){
+        var searchList = [this.formData.data];
+        
+        getCurrencyList(page,pageNumber,this.formData.contractType,searchList,this.formData.hot).then(result => {
           this.dataSource = []
           var list = result.data.data.list
           this.total = result.data.data.total

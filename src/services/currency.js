@@ -9,13 +9,12 @@ export async function getCurrencyInfo(id) {
   })
 }
 
-export async function getCurrencyList(pageNum,pageSize,currency,contractType,contractAddress,hot) {
+export async function getCurrencyList(pageNum,pageSize,contractType,searchList,hot) {
   return request(GetCurrencyList, METHOD.POST, {
     pageNum: pageNum,
     pageSize:pageSize,
-    currency:currency,
     contractType:contractType,
-    contractAddress:contractAddress,
+    searchList:searchList,
     hot:hot,
   })
 }

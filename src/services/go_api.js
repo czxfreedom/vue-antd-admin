@@ -31,4 +31,12 @@ module.exports = {
   GetCurrencyList: `${GO_BASE_URL}/api/currency/list`,
   CreateCurrency:  `${GO_BASE_URL}/api/currency/create`,
   DeleteCurrency:  `${GO_BASE_URL}/api/currency/delete`,
+  GetManagementRoleInfo: `${GO_BASE_URL}/api/managementRole/info`,
+  GetManagementRoleList: `${GO_BASE_URL}/api/managementRole/list`,
+  CreateManagementRole:  `${GO_BASE_URL}/api/managementRole/create`,
+  DeleteManagementRole:  `${GO_BASE_URL}/api/managementRole/delete`,
+  GetManagementUserInfo: `${GO_BASE_URL}/api/managementUser/info`,
+  GetManagementUserList: `${GO_BASE_URL}/api/managementUser/list`,
+  CreateManagementUser:  `${GO_BASE_URL}/api/managementUser/create`,
+  DeleteManagementUser:  `${GO_BASE_URL}/api/managementUser/delete`,
 }

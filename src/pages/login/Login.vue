@@ -9,7 +9,7 @@
     </div>
     <div class="login">
       <a-form @submit="onSubmit" :form="form">
-        <a-tabs size="large" :tabBarStyle="{textAlign: 'center'}" style="padding: 0 2px;">
+        <a-tabs size="large" >
           <a-tab-pane tab="账户密码登录" key="1">
             <a-alert type="error" :closable="true" v-show="error" :message="error" showIcon style="margin-bottom: 24px;" />
             <a-form-item>
@@ -34,7 +34,7 @@
               </a-input>
             </a-form-item>
           </a-tab-pane>
-          <a-tab-pane tab="手机号登录" key="2">
+          <!-- <a-tab-pane tab="手机号登录" key="2">
             <a-form-item>
               <a-input size="large" placeholder="mobile number" >
                 <a-icon slot="prefix" type="mobile" />
@@ -52,12 +52,12 @@
                 </a-col>
               </a-row>
             </a-form-item>
-          </a-tab-pane>
+          </a-tab-pane> -->
         </a-tabs>
         <div>
-          <a-checkbox :checked="true" >自动登录</a-checkbox>
-          <a style="float: right">忘记密码</a>
-          <router-link  to="/dashboard/workplace" >注册账户</router-link>
+          <!-- <a-checkbox :checked="true" >自动登录</a-checkbox> -->
+          <!-- <a style="float: right">忘记密码</a> -->
+          <!-- <router-link  to="/dashboard/workplace" >注册账户</router-link> -->
         </div>
         <a-form-item>
           <a-button :loading="logging" style="width: 100%;margin-top: 24px" size="large" htmlType="submit" type="primary">登录</a-button>

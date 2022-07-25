@@ -7,6 +7,8 @@ import currencyRateSettingService from "./currencyRateSetting"
 import dappService from "./dapp"
 import uploadService from "./upload"
 import currencyService from "./currency"
+import managementUserService from "./managementUser"
+import managementRoleService from "./managementRole"
 
 export {
   userService,
@@ -16,5 +18,7 @@ export {
   currencyRateSettingService,
   dappService,
   uploadService,
-  currencyService
+  currencyService,
+  managementUserService,
+  managementRoleService
 }

@@ -234,7 +234,40 @@ const options = {
               },
               component: () => import('@/pages/systemSetting/Version')
             },
-          
+            {
+              path: 'managementRoles',
+              name: '角色设置',
+              meta: {
+                authority: 'queryForm',
+              },
+              component: () => import('@/pages/systemSetting/QueryManagementRoleList')
+            },
+            {
+              path: 'managementRole/:isAdd/:id',
+              name: '角色页面',
+              meta: {
+                // highlight: '/list/dapp',
+                invisible: true
+              },
+              component: () => import('@/pages/systemSetting/ManagementRole')
+            },
+            {
+              path: 'managementUsers',
+              name: '管理员设置',
+              meta: {
+                authority: 'queryForm',
+              },
+              component: () => import('@/pages/systemSetting/QueryManagementUserList')
+            },
+            {
+              path: 'managementUser/:isAdd/:id',
+              name: '管理员页面',
+              meta: {
+                // highlight: '/list/dapp',
+                invisible: true
+              },
+              component: () => import('@/pages/systemSetting/ManagementUser')
+            },
           ]
         },
         {

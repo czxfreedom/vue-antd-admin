@@ -1,4 +1,5 @@
-import {LOGIN, ROUTES} from '@/services/api'
+import {ManagementUserLOGIN} from '@/services/go_api'
+import{ROUTES,LOGIN} from '@/services/api'
 import {request, METHOD, removeAuthorization} from '@/utils/request'
 
 /**
@@ -7,13 +8,18 @@ import {request, METHOD, removeAuthorization} from '@/utils/request'
  * @param password 账户密码
  * @returns {Promise<AxiosResponse<T>>}
  */
-export async function login(name, password) {
+export async function login2(name, password) {
   return request(LOGIN, METHOD.POST, {
     name: name,
     password: password
   })
 }
-
+export async function login(userName, password) {
+  return request(ManagementUserLOGIN, METHOD.POST, {
+    userName: userName,
+    password: password
+  })
+}
 export async function getRoutesConfig() {
   return request(ROUTES, METHOD.GET)
 }

@@ -144,11 +144,14 @@
           :disabled="item.disabled">{{item.label}}</a-checkbox>
       </a-checkbox-group>
     </a-form-model-item>
-    <a-form-model-item :wrapper-col="{ span: 21, offset: 3 }">
-      <a-space>
-        <a-button type="primary" @click="submitForm">提交</a-button>
-      </a-space>
-    </a-form-model-item>
+    <div v-if="this.$route.params.isAdd =='1'">
+
+      <a-form-model-item :wrapper-col="{ span: 21, offset: 3 }">
+        <a-space>
+          <a-button type="primary" @click="submitForm">提交</a-button>
+        </a-space>
+      </a-form-model-item>
+    </div>
   </a-form-model>
 
   </a-row>
@@ -254,33 +257,32 @@ export default {
     onChangeWallet() {
       this.formData.indeterminateWallet = !!this.formData.routerList.wallet.length && this.formData.routerList.wallet.length < 4;
       this.formData.checkAllWallet = this.formData.routerList.wallet.length === 4;
-      console.log(this.formData.indeterminateWallet,this.formData.checkAllWallet,443)
-      console.log(this.formData.routerList.wallet,447)
+      
     },
     onCheckAllChangeWallet(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.wallet =this.allChoiceList
         this.formData.checkAllWallet = e.target.checked
-        this.indeterminateWallet = false
+        this.formData.indeterminateWallet = false
+       
       }else{
         this.formData.routerList.wallet = []
-        // this.indeterminate = true
+      
         this.formData.checkAllWallet = e.target.checked
       }
     },
     onChangeCurrency() {
       this.formData.indeterminateCurrency = !!this.formData.routerList.currency.length && this.formData.routerList.currency.length < 4;
       this.formData.checkAllCurrency = this.formData.routerList.currency.length === 4;
-      console.log(this.formData.indeterminateCurrency,this.formData.checkAllCurrency,443)
-      console.log(this.formData.routerList.currency,447)
+      
     },
     onCheckAllChangeCurrency(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.currency =this.allChoiceList
         this.formData.checkAllCurrency = e.target.checked
-        this.indeterminateCurrency = false
+        this.formData.indeterminateCurrency = false
       }else{
         this.formData.routerList.currency = []
         // this.indeterminate = true
@@ -290,15 +292,14 @@ export default {
     onChangeDapp() {
       this.formData.indeterminateDapp = !!this.formData.routerList.dapp.length && this.formData.routerList.dapp.length < 4;
       this.formData.checkAllDapp = this.formData.routerList.dapp.length === 4;
-      console.log(this.formData.indeterminateDapp,this.formData.checkAllDapp,443)
-      console.log(this.formData.routerList.dapp,447)
+      
     },
     onCheckAllChangeDapp(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.dapp =this.allChoiceList
         this.formData.checkAllDapp = e.target.checked
-        this.indeterminateDapp = false
+        this.formData.indeterminateDapp = false
       }else{
         this.formData.routerList.dapp = []
         // this.indeterminate = true
@@ -308,15 +309,14 @@ export default {
     onChangeFeedback() {
       this.formData.indeterminateFeedback = !!this.formData.routerList.feedback.length && this.formData.routerList.feedback.length < 4;
       this.formData.checkAllFeedback = this.formData.routerList.feedback.length === 4;
-      console.log(this.formData.indeterminateFeedback,this.formData.checkAllFeedback,443)
-      console.log(this.formData.routerList.feedback,447)
+      
     },
     onCheckAllChangeFeedback(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.feedback =this.allChoiceList
         this.formData.checkAllFeedback = e.target.checked
-        this.indeterminateFeedback = false
+        this.formData.indeterminateFeedback = false
       }else{
         this.formData.routerList.feedback = []
         // this.indeterminate = true
@@ -326,15 +326,14 @@ export default {
     onChangeCurrencyRate() {
       this.formData.indeterminateCurrencyRate = !!this.formData.routerList.currencyRate.length && this.formData.routerList.currencyRate.length < 4;
       this.formData.checkAllCurrencyRate = this.formData.routerList.currencyRate.length === 4;
-      console.log(this.formData.indeterminateCurrencyRate,this.formData.checkAllCurrencyRate,443)
-      console.log(this.formData.routerList.currencyRate,447)
+      
     },
     onCheckAllChangeCurrencyRate(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.currencyRate =this.allChoiceList
         this.formData.checkAllCurrencyRate = e.target.checked
-        this.indeterminateCurrencyRate = false
+        this.formData.indeterminateCurrencyRate = false
       }else{
         this.formData.routerList.currencyRate = []
         // this.indeterminate = true
@@ -344,15 +343,14 @@ export default {
     onChangeVersion() {
       this.formData.indeterminateVersion = !!this.formData.routerList.version.length && this.formData.routerList.version.length < 4;
       this.formData.checkAllVersion = this.formData.routerList.version.length === 4;
-      console.log(this.formData.indeterminateVersion,this.formData.checkAllVersion,443)
-      console.log(this.formData.routerList.version,447)
+     
     },
     onCheckAllChangeVersion(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.version =this.allChoiceList
         this.formData.checkAllVersion = e.target.checked
-        this.indeterminateVersion = false
+        this.formData.indeterminateVersion = false
       }else{
         this.formData.routerList.version = []
         // this.indeterminate = true
@@ -362,15 +360,14 @@ export default {
     onChangeRole() {
       this.formData.indeterminateRole = !!this.formData.routerList.role.length && this.formData.routerList.role.length < 4;
       this.formData.checkAllRole = this.formData.routerList.role.length === 4;
-      console.log(this.formData.indeterminateRole,this.formData.checkAllRole,443)
-      console.log(this.formData.routerList.role,447)
+      
     },
     onCheckAllChangeRole(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.role =this.allChoiceList
         this.formData.checkAllRole = e.target.checked
-        this.indeterminateRole = false
+        this.formData.indeterminateRole = false
       }else{
         this.formData.routerList.role = []
         // this.indeterminate = true
@@ -382,15 +379,14 @@ export default {
     onChangeUserSetting() {
       this.formData.indeterminateUserSetting = !!this.formData.routerList.userSetting.length && this.formData.routerList.userSetting.length < 4;
       this.formData.checkAllUserSetting = this.formData.routerList.userSetting.length === 4;
-      console.log(this.formData.indeterminateUserSetting,this.formData.checkAllUserSetting,443)
-      console.log(this.formData.routerList.userSetting,447)
+      
     },
     onCheckAllChangeUserSetting(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.userSetting =this.allChoiceList
         this.formData.checkAllUserSetting = e.target.checked
-        this.indeterminateUserSetting = false
+        this.formData.indeterminateUserSetting = false
       }else{
         this.formData.routerList.userSetting = []
         // this.indeterminate = true
@@ -402,15 +398,14 @@ export default {
     onChangeArticleSetting() {
       this.formData.indeterminateArticleSetting = !!this.formData.routerList.articleSetting.length && this.formData.routerList.articleSetting.length < 4;
       this.formData.checkAllArticleSetting = this.formData.routerList.articleSetting.length === 4;
-      console.log(this.formData.indeterminateArticleSetting,this.formData.checkAllArticleSetting,443)
-      console.log(this.formData.routerList.articleSetting,447)
+      
     },
     onCheckAllChangeArticleSetting(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.articleSetting =this.allChoiceList
         this.formData.checkAllArticleSetting = e.target.checked
-        this.indeterminateArticleSetting = false
+        this.formData.indeterminateArticleSetting = false
       }else{
         this.formData.routerList.articleSetting = []
         // this.indeterminate = true
@@ -421,15 +416,14 @@ export default {
     onChangeArticle() {
       this.formData.indeterminateArticle = !!this.formData.routerList.article.length && this.formData.routerList.article.length < 4;
       this.formData.checkAllArticle = this.formData.routerList.article.length === 4;
-      console.log(this.formData.indeterminateArticle,this.formData.checkAllArticle,443)
-      console.log(this.formData.routerList.article,447)
+      
     },
     onCheckAllChangeArticle(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.article =this.allChoiceList
         this.formData.checkAllArticle = e.target.checked
-        this.indeterminateArticle = false
+        this.formData.indeterminateArticle = false
       }else{
         this.formData.routerList.article = []
         // this.indeterminate = true
@@ -439,15 +433,14 @@ export default {
     onChangeNode() {
       this.formData.indeterminateNode = !!this.formData.routerList.node.length && this.formData.routerList.node.length < 4;
       this.formData.checkAllNode = this.formData.routerList.node.length === 4;
-      console.log(this.formData.indeterminateNode,this.formData.checkAllNode,443)
-      console.log(this.formData.routerList.node,447)
+      
     },
     onCheckAllChangeNode(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.node =this.allChoiceList
         this.formData.checkAllNode = e.target.checked
-        this.indeterminateNode = false
+        this.formData.indeterminateNode = false
       }else{
         this.formData.routerList.node = []
         // this.indeterminate = true
@@ -459,7 +452,7 @@ export default {
       this.formData.checkAllSystem = this.formData.routerList.system.length === 1;
     },
     onCheckAllChangeSystem(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.system =this.watchList
         this.formData.checkAllSystem = e.target.checked
@@ -474,7 +467,7 @@ export default {
       this.formData.checkAllHome = this.formData.routerList.home.length === 1;
     },
     onCheckAllChangeHome(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.home =this.watchList
         this.formData.checkAllHome = e.target.checked
@@ -489,7 +482,7 @@ export default {
       this.formData.checkAllStatistics = this.formData.routerList.statistics.length === 1;
     },
     onCheckAllChangeStatistics(e) {
-      console.log(e.target.checked,"oncheckall")
+      
       if (e.target.checked== true){
         this.formData.routerList.statistics =this.watchList
         this.formData.checkAllStatistics = e.target.checked
@@ -500,13 +493,10 @@ export default {
       }
     },
     submitForm() {
-      console.log("1111111",this.$route,this.$router)
-      // this.$refs['elForm'].validate(valid => {
-      //   if (!valid) return
-      // })
+     
       //修改
       if (this.$route.params.id){
-            // console.log("1111111222")
+            
             this.updateManagementRole(this.$route.params.id)
       }else{
             
@@ -518,15 +508,32 @@ export default {
         getManagementRoleInfo(id).then(result => {
           if (result.data.status == 0){
               var data = result.data.data
-              this.formData.categoryName =data.categoryName
-              this.formData.id = data.id
-              this.formData.number = data.number
+              this.formData.RoleName =data.name
+              const authority = JSON.parse(data.authority)
+              for (let i = 0, len = authority.permissions.length; i < len; i++) {
+                  var tempData = authority.permissions[i]
+                  this.formData.routerList[tempData.id] = tempData.operation
+              }
           }
-         
+          this.onChangeHome()
+          this.onChangeWallet()
+          this.onChangeCurrency()
+          this.onChangeNode()
+          this.onChangeStatistics()
+          this.onChangeDapp()
+          this.onChangeFeedback()
+          this.onChangeArticle()
+          this.onChangeArticleSetting()
+          this.onChangeSystem()
+          this.onChangeCurrencyRate()
+          this.onChangeVersion()
+          this.onChangeRole()
+          this.onChangeUserSetting()
+          
         })
     },
     updateManagementRole(id){
-      console.log(this.formData,id)
+      
       updateManagementRole(parseInt(id),this.formData).then(
        result=>{
          

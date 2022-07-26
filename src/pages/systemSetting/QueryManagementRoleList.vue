@@ -2,7 +2,7 @@
   <a-card>
     <div>
       <a-space class="operator">
-        <a-button @click="addNew" type="primary">新建</a-button>
+        <a-button @click="addNew" type="primary" >新建</a-button>
       </a-space>
       <standard-table
         :columns="columns"
@@ -17,13 +17,11 @@
         </div>
         <div slot="action" slot-scope="{text, record}">
          
-          <router-link :to="`/system/managementRole/1/${record.key}`" > 编辑 </router-link>
-
-
-          <a @click="deleteRecord(record.key)">
-            <a-icon type="delete" /> 删除 
+          <router-link :to="`/system/managementRole/1/${record.key}`"  v-auth="`edit`"> <a-icon type="edit" /> 编辑 </router-link>
+          <a @click="deleteRecord(record.key)" v-auth="`delete`">
+            <a-icon  type="delete" /> 删除 
           </a>
-          <router-link :to="`/system/managementRole/0/${record.key}`" > 详情 </router-link>
+          <router-link :to="`/system/managementRole/0/${record.key}`"  v-auth="`watch`"> <a-icon type="info-circle" /> 详情 </router-link>
         </div>
         <template slot="statusTitle">
           <a-icon @click.native="onStatusTitleClick" type="info-circle" />
@@ -81,20 +79,18 @@ export default {
       dataSource: dataSource,
       selectedRows: [],
       pagination:{
-            current: 1,
-            pageSize: 20,
-            showSizeChanger: true,
-            total: this.total,
-            pageSizeOptions: ['5', '10', '20', '30', '50'],
-            showTotal: (total) => `共 ${total} 条数据`,
-            onShowSizeChange: this.pageSizeChange,
-            onChange: this.pageChange,
-            }
+          current: 1,
+          pageSize: 20,
+          showSizeChanger: true,
+          total: this.total,
+          pageSizeOptions: ['5', '10', '20', '30', '50'],
+          showTotal: (total) => `共 ${total} 条数据`,
+          onShowSizeChange: this.pageSizeChange,
+          onChange: this.pageChange,
+          }
     }
   },
-  authorize: {
-    deleteRecord: 'delete'
-  },
+ 
   created () {
     this.getList(this.pagination.current,this.pagination.pageSize)
   },
@@ -157,7 +153,6 @@ export default {
             this.dataSource.push({
               key: list[i].id,
               no: i+1,
-              id:list[i].id,
               name: list[i].name,
               updateTime: list[i].updateTime,
             })

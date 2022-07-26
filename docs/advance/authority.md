@@ -161,7 +161,7 @@ authorize: {
     <standard-table ...>
       ...
       <div slot="action" slot-scope="{text, record}">
-        <a @click="deleteRecord(record.key)" v-auth="`delete`">
+        <a @click="deleteRecord(record.key)" v-auth="`delete`" >
           <a-icon type="delete" />删除
         </a>
       </div>

@@ -2,7 +2,7 @@
   <a-card>
     <div>
       <a-space class="operator">
-        <a-button @click="addNew" type="primary">新建</a-button>
+        <a-button @click="addNew" type="primary" v-auth="`add`">新建</a-button>
       </a-space>
       <standard-table
         :columns="columns"
@@ -16,13 +16,13 @@
         </div>
         <div slot="action" slot-scope="{text, record}">
          
-          <router-link :to="`/system/CurrencyRateSetting/1/${record.key}`" > 编辑 </router-link>
+          <router-link :to="`/system/CurrencyRateSetting/1/${record.key}`"  v-auth="`edit`"> <a-icon type="edit" /> 编辑 </router-link>
 
 
-          <a @click="deleteRecord(record.key)">
-            <a-icon type="delete" /> 删除 
+          <a @click="deleteRecord(record.key)" v-auth="`delete`">
+            <a-icon  type="delete" /> 删除 
           </a>
-          <router-link :to="`/system/CurrencyRateSetting/0/${record.key}`" > 详情 </router-link>
+          <router-link :to="`/system/CurrencyRateSetting/0/${record.key}`"  v-auth="`watch`"> <a-icon type="info-circle" /> 详情 </router-link>
         </div>
         <template slot="statusTitle">
           <a-icon @click.native="onStatusTitleClick" type="info-circle" />
@@ -96,9 +96,7 @@ export default {
     
     }
   },
-  authorize: {
-    deleteRecord: 'delete'
-  },
+ 
   created () {
     console.log("created")
     this.getList(1,20)

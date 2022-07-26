@@ -114,20 +114,27 @@ export default {
       const loginRes = res.data
       console.log(loginRes,115)
       if (loginRes.code >= 0) {
+        console.log("117")
         const {user, permissions, roles} = loginRes.data
         this.setUser(user)
         this.setPermissions(permissions)
         this.setRoles(roles)
+        console.log("118")
         setAuthorization({token: loginRes.data.token, expireAt: new Date(loginRes.data.expireAt)})
+        console.log("119")
         // 获取路由配置
         getRoutesConfig().then(result => {
+          console.log("120")
           const routesConfig = result.data.data
           loadRoutes(routesConfig)
+          console.log("121")
           this.$router.push('/dashboard/workplace')
-          this.$message.success(loginRes.message, 3)
+          this.$message.success(loginRes.data.user.name+",欢迎回来~", 3)
+
         })
       } else {
-        this.error = loginRes.message
+        this.$message.error(loginRes.msg, 3)
+        this.error = loginRes.msg
       }
     }
   }

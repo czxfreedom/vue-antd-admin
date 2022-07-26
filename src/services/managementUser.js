@@ -9,34 +9,27 @@ export async function getManagementUserInfo(id) {
   })
 }
 
-export async function getManagementUserList(pageNum,pageSize,url,name) {
+export async function getManagementUserList(pageNum,pageSize) {
   return request(GetManagementUserList, METHOD.POST, {
     pageNum: pageNum,
     pageSize:pageSize,
-    url:url,
-    name:name,
   })
 }
 
-export async function createManagementUser(name,logo,summary,url,status) {
+export async function createManagementUser(userName,password,roleId) {
   return request(CreateManagementUser, METHOD.POST, {
-    name: name,
-    logo:logo,
-    summary:summary,
-    url:url,
-    status:status
+    userName: userName,
+    password:password,
+    roleId:roleId
   })
 }
 
-export async function updateManagementUser(id,name,logo,summary,url,status,isDeleted) {
+export async function updateManagementUser(id,userName,password,roleId) {
   return request(CreateManagementUser, METHOD.POST, {
     id:id,
-    name: name,
-    logo:logo,
-    summary:summary,
-    url:url,
-    status:status,
-    isDeleted:isDeleted
+    userName: userName,
+    password:password,
+    roleId:roleId
   })
 }
 export async function deleteManagementUser(id) {

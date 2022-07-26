@@ -7,12 +7,12 @@
     <a-menu :class="['avatar-menu']" slot="overlay">
       <a-menu-item>
         <a-icon type="user" />
-        <span>个人中心</span>
+        <span>修改密码</span>
       </a-menu-item>
-      <a-menu-item>
-        <a-icon type="setting" />
-        <span>设置</span>
-      </a-menu-item>
+      <!-- <a-menu-item> -->
+        <!-- <a-icon type="setting" /> -->
+        <!-- <span>设置</span> -->
+      <!-- </a-menu-item> -->
       <a-menu-divider />
       <a-menu-item @click="logout">
         <a-icon style="margin-right: 8px;" type="poweroff" />

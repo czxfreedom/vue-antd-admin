@@ -44,136 +44,191 @@ const options = {
               },
               component: () => import('@/pages/dashboard/workplace'),
             },
-            {
-              path: 'analysis',
-              name: '分析页',
-              component: () => import('@/pages/dashboard/analysis'),
-            }
+            // {
+            //   path: 'analysis',
+            //   name: '分析页',
+            //   component: () => import('@/pages/dashboard/analysis'),
+            // }
           ]
+        },
+        // {
+        //   path: 'form',
+        //   name: '表单页',
+        //   meta: {
+        //     icon: 'form',
+        //     page: {
+        //       cacheAble: false
+        //     }
+        //   },
+        //   component: PageView,
+        //   children: [
+        //     {
+        //       path: 'basic',
+        //       name: '基础表单',
+        //       component: () => import('@/pages/form/basic'),
+        //     },
+        //     {
+        //       path: 'step',
+        //       name: '分步表单',
+        //       component: () => import('@/pages/form/step'),
+        //     },
+        //     {
+        //       path: 'advance',
+        //       name: '高级表单',
+        //       component: () => import('@/pages/form/advance'),
+        //     }
+        //   ]
+        // },
+        {
+          path: 'articles',
+          name: '文章管理',
+          meta: {
+            authority: 'article',
+          },
+          component: () => import('@/pages/list/QueryArticle')
+
         },
         {
-          path: 'form',
-          name: '表单页',
+          path: 'list/article/:isAdd/:id',
+          name: '文章页面',
           meta: {
-            icon: 'form',
-            page: {
-              cacheAble: false
-            }
+            // highlight: '/list/article',
+            authority: 'article',
+            invisible: true
           },
-          component: PageView,
-          children: [
-            {
-              path: 'basic',
-              name: '基础表单',
-              component: () => import('@/pages/form/basic'),
-            },
-            {
-              path: 'step',
-              name: '分步表单',
-              component: () => import('@/pages/form/step'),
-            },
-            {
-              path: 'advance',
-              name: '高级表单',
-              component: () => import('@/pages/form/advance'),
-            }
-          ]
+          component: () => import('@/pages/list/Article')
         },
         {
-          path: 'list',
-          name: '列表页',
+          path: 'currencys',
+          name: '币种管理',
           meta: {
-            icon: 'table'
+            authority: 'currency',
           },
-          component: PageView,
-          children: [
-            {
-              path: 'articles',
-              name: '文章管理',
-              meta: {
-                authority: 'queryForm',
-              },
-              component: () => import('@/pages/list/QueryArticle')
+          component: () => import('@/pages/list/QueryCurrency')
 
-            },
-            {
-              path: 'article/:isAdd/:id',
-              name: '文章页面',
-              meta: {
-                // highlight: '/list/article',
-                invisible: true
-              },
-              component: () => import('@/pages/detail/ArticleDetail')
-            },
-            {
-              path: 'currencys',
-              name: '币种管理',
-              meta: {
-                authority: 'queryForm',
-              },
-              component: () => import('@/pages/list/QueryCurrency')
-
-            },
-            {
-              path: 'currency/:isAdd/:id',
-              name: '币种页面',
-              meta: {
-                // highlight: '/list/article',
-                invisible: true
-              },
-              component: () => import('@/pages/detail/Currency')
-            },
-            {
-              path: 'dapps',
-              name: 'DAPP管理',
-              meta: {
-                authority: 'queryForm',
-              },
-              component: () => import('@/pages/list/QueryDapp')
-            },
-            {
-              path: 'dapp/:isAdd/:id',
-              name: 'DAPP页面',
-              meta: {
-                // highlight: '/list/dapp',
-                invisible: true
-              },
-              component: () => import('@/pages/detail/DAPP')
-            },
-            {
-              path: 'primary',
-              name: '标准列表',
-              component: () => import('@/pages/list/StandardList'),
-            },
-            {
-              path: 'card',
-              name: '卡片列表',
-              component: () => import('@/pages/list/CardList'),
-            },
-            {
-              path: 'search',
-              name: '搜索列表',
-              component: () => import('@/pages/list/search/SearchLayout'),
-              children: [
-                {
-                  path: 'article',
-                  name: '文章',
-                  component: () => import('@/pages/list/search/ArticleList'),
-                },
-                {
-                  path: 'application',
-                  name: '应用',
-                  component: () => import('@/pages/list/search/ApplicationList'),
-                },
-                {
-                  path: 'project',
-                  name: '项目',
-                  component: () => import('@/pages/list/search/ProjectList'),
-                }
-              ]
-            }
-          ]
         },
+        {
+          path: 'list/currency/:isAdd/:id',
+          name: '币种页面',
+          meta: {
+            // highlight: '/list/article',
+            invisible: true
+          },
+          component: () => import('@/pages/list/Currency')
+        },
+        {
+          path: 'dapps',
+          name: 'DAPP管理',
+          meta: {
+            authority: 'dapp',
+          },
+          component: () => import('@/pages/list/QueryDapp')
+        },
+        {
+          path: 'list/dapp/:isAdd/:id',
+          name: 'DAPP页面',
+          meta: {
+            // highlight: '/list/dapp',
+            invisible: true
+          },
+          component: () => import('@/pages/list/DAPP')
+        },
+        // {
+          // path: 'list',
+          // name: '列表页',
+          // meta: {
+          //   icon: 'table'
+          // },
+          // component: PageView,
+          // children: [
+            // {
+            //   path: 'articles',
+            //   name: '文章管理',
+            //   meta: {
+            //     authority: 'article',
+            //   },
+            //   component: () => import('@/pages/list/QueryArticle')
+
+            // },
+            // {
+            //   path: 'article/:isAdd/:id',
+            //   name: '文章页面',
+            //   meta: {
+            //     // highlight: '/list/article',
+            //     authority: 'article',
+            //     invisible: true
+            //   },
+            //   component: () => import('@/pages/detail/ArticleDetail')
+            // },
+            // {
+            //   path: 'currencys',
+            //   name: '币种管理',
+            //   meta: {
+            //     authority: 'currency',
+            //   },
+            //   component: () => import('@/pages/list/QueryCurrency')
+
+            // },
+            // {
+            //   path: 'currency/:isAdd/:id',
+            //   name: '币种页面',
+            //   meta: {
+            //     // highlight: '/list/article',
+            //     invisible: true
+            //   },
+            //   component: () => import('@/pages/detail/Currency')
+            // },
+            // {
+            //   path: 'dapps',
+            //   name: 'DAPP管理',
+            //   meta: {
+            //     authority: 'dapp',
+            //   },
+            //   component: () => import('@/pages/list/QueryDapp')
+            // },
+            // {
+            //   path: 'dapp/:isAdd/:id',
+            //   name: 'DAPP页面',
+            //   meta: {
+            //     // highlight: '/list/dapp',
+            //     invisible: true
+            //   },
+            //   component: () => import('@/pages/detail/DAPP')
+            // },
+            // {
+            //   path: 'primary',
+            //   name: '标准列表',
+            //   component: () => import('@/pages/list/StandardList'),
+            // },
+            // {
+            //   path: 'card',
+            //   name: '卡片列表',
+            //   component: () => import('@/pages/list/CardList'),
+            // },
+            // {
+            //   path: 'search',
+            //   name: '搜索列表',
+            //   component: () => import('@/pages/list/search/SearchLayout'),
+            //   children: [
+            //     {
+            //       path: 'article',
+            //       name: '文章',
+            //       component: () => import('@/pages/list/search/ArticleList'),
+            //     },
+            //     {
+            //       path: 'application',
+            //       name: '应用',
+            //       component: () => import('@/pages/list/search/ApplicationList'),
+            //     },
+            //     {
+            //       path: 'project',
+            //       name: '项目',
+            //       component: () => import('@/pages/list/search/ProjectList'),
+            //     }
+            //   ]
+            // }
+        //   ]
+        // },
         {
           path: 'system',
           name: '系统设置',
@@ -186,7 +241,7 @@ const options = {
               path: 'articleSettings',
               name: '文章类型设置',
               meta: {
-                authority: 'queryForm',
+                authority: 'articleSetting',
               },
               component: () => import('@/pages/systemSetting/QueryArticleSetting')
 
@@ -204,7 +259,7 @@ const options = {
               path: 'currencyRateSettings',
               name: '货币单位设置',
               meta: {
-                authority: 'queryForm',
+                authority: 'currencyRate',
               },
               component: () => import('@/pages/systemSetting/QueryCurrencyRateSetting')
             },
@@ -221,7 +276,7 @@ const options = {
               path: 'versions',
               name: '版本更新设置',
               meta: {
-                authority: 'queryForm',
+                authority: 'version',
               },
               component: () => import('@/pages/systemSetting/QueryVersion')
             },
@@ -238,7 +293,7 @@ const options = {
               path: 'managementRoles',
               name: '角色设置',
               meta: {
-                authority: 'queryForm',
+                authority: 'role',
               },
               component: () => import('@/pages/systemSetting/QueryManagementRoleList')
             },
@@ -255,7 +310,7 @@ const options = {
               path: 'managementUsers',
               name: '管理员设置',
               meta: {
-                authority: 'queryForm',
+                authority: 'userSetting',
               },
               component: () => import('@/pages/systemSetting/QueryManagementUserList')
             },
@@ -270,145 +325,145 @@ const options = {
             },
           ]
         },
-        {
-          path: 'details',
-          name: '详情页',
-          meta: {
-            icon: 'profile'
-          },
-          component: BlankView,
-          children: [
-            {
-              path: 'basic',
-              name: '基础详情页',
-              component: () => import('@/pages/detail/BasicDetail')
-            },
-            {
-              path: 'advance',
-              name: '高级详情页',
-              component: () => import('@/pages/detail/AdvancedDetail')
-            }
-          ]
-        },
-        {
-          path: 'result',
-          name: '结果页',
-          meta: {
-            icon: 'check-circle-o',
-          },
-          component: PageView,
-          children: [
-            {
-              path: 'success',
-              name: '成功',
-              component: () => import('@/pages/result/Success')
-            },
-            {
-              path: 'error',
-              name: '失败',
-              component: () => import('@/pages/result/Error')
-            }
-          ]
-        },
-        {
-          path: 'exception',
-          name: '异常页',
-          meta: {
-            icon: 'warning',
-          },
-          component: BlankView,
-          children: [
-            {
-              path: '404',
-              name: 'Exp404',
-              component: () => import('@/pages/exception/404')
-            },
-            {
-              path: '403',
-              name: 'Exp403',
-              component: () => import('@/pages/exception/403')
-            },
-            {
-              path: '500',
-              name: 'Exp500',
-              component: () => import('@/pages/exception/500')
-            }
-          ]
-        },
-        {
-          path: 'components',
-          name: '内置组件',
-          meta: {
-            icon: 'appstore-o'
-          },
-          component: PageView,
-          children: [
-            {
-              path: 'taskCard',
-              name: '任务卡片',
-              component: () => import('@/pages/components/TaskCard')
-            },
-            {
-              path: 'palette',
-              name: '颜色复选框',
-              component: () => import('@/pages/components/Palette')
-            },
-            {
-              path: 'table',
-              name: '高级表格',
-              component: () => import('@/pages/components/table')
-            }
-          ]
-        },
-        {
-          name: '验权表单',
-          path: 'auth/form',
-          meta: {
-            icon: 'file-excel',
-            authority: {
-              permission: 'form'
-            }
-          },
-          component: () => import('@/pages/form/basic')
-        },
-        {
-          name: '带参菜单',
-          path: 'router/query',
-          meta: {
-            icon: 'project',
-            query: {
-              name: '菜单默认参数'
-            }
-          },
-          component: () => import('@/pages/Demo')
-        },
-        {
-          name: '动态路由菜单',
-          path: 'router/dynamic/:id',
-          meta: {
-            icon: 'project',
-            params: {
-              id: 123
-            }
-          },
-          component: () => import('@/pages/Demo')
-        },
-        {
-          name: 'Ant Design Vue',
-          path: 'antdv',
-          meta: {
-            icon: 'ant-design',
-            link: 'https://www.antdv.com/docs/vue/introduce-cn/'
-          }
-        },
-        {
-          name: '使用文档',
-          path: 'document',
-          meta: {
-            icon: 'file-word',
-            link: 'https://iczer.gitee.io/vue-antd-admin-docs/'
-          }
-        }
+        // {
+        //   path: 'details',
+        //   name: '详情页',
+        //   meta: {
+        //     icon: 'profile'
+        //   },
+        //   component: BlankView,
+        //   children: [
+        //     {
+        //       path: 'basic',
+        //       name: '基础详情页',
+        //       component: () => import('@/pages/detail/BasicDetail')
+        //     },
+        //     {
+        //       path: 'advance',
+        //       name: '高级详情页',
+        //       component: () => import('@/pages/detail/AdvancedDetail')
+        //     }
+        //   ]
+        // },
+        // {
+        //   path: 'result',
+        //   name: '结果页',
+        //   meta: {
+        //     icon: 'check-circle-o',
+        //   },
+        //   component: PageView,
+        //   children: [
+        //     {
+        //       path: 'success',
+        //       name: '成功',
+        //       component: () => import('@/pages/result/Success')
+        //     },
+        //     {
+        //       path: 'error',
+        //       name: '失败',
+        //       component: () => import('@/pages/result/Error')
+        //     }
+        //   ]
+        // },
+        // {
+        //   path: 'exception',
+        //   name: '异常页',
+        //   meta: {
+        //     icon: 'warning',
+        //   },
+        //   component: BlankView,
+        //   children: [
+        //     {
+        //       path: '404',
+        //       name: 'Exp404',
+        //       component: () => import('@/pages/exception/404')
+        //     },
+        //     {
+        //       path: '403',
+        //       name: 'Exp403',
+        //       component: () => import('@/pages/exception/403')
+        //     },
+        //     {
+        //       path: '500',
+        //       name: 'Exp500',
+        //       component: () => import('@/pages/exception/500')
+        //     }
+        //   ]
+        // },
+        // {
+        //   path: 'components',
+        //   name: '内置组件',
+        //   meta: {
+        //     icon: 'appstore-o'
+        //   },
+        //   component: PageView,
+        //   children: [
+        //     {
+        //       path: 'taskCard',
+        //       name: '任务卡片',
+        //       component: () => import('@/pages/components/TaskCard')
+        //     },
+        //     {
+        //       path: 'palette',
+        //       name: '颜色复选框',
+        //       component: () => import('@/pages/components/Palette')
+        //     },
+        //     {
+        //       path: 'table',
+        //       name: '高级表格',
+        //       component: () => import('@/pages/components/table')
+        //     }
+        //   ]
+        // },
+        // {
+        //   name: '验权表单',
+        //   path: 'auth/form',
+        //   meta: {
+        //     icon: 'file-excel',
+        //     authority: {
+        //       permission: 'form'
+        //     }
+        //   },
+        //   component: () => import('@/pages/form/basic')
+        // },
+        // {
+        //   name: '带参菜单',
+        //   path: 'router/query',
+        //   meta: {
+        //     icon: 'project',
+        //     query: {
+        //       name: '菜单默认参数'
+        //     }
+        //   },
+        //   component: () => import('@/pages/Demo')
+        // },
+        // {
+        //   name: '动态路由菜单',
+        //   path: 'router/dynamic/:id',
+        //   meta: {
+        //     icon: 'project',
+        //     params: {
+        //       id: 123
+        //     }
+        //   },
+        //   component: () => import('@/pages/Demo')
+        // },
+        // {
+        //   name: 'Ant Design Vue',
+        //   path: 'antdv',
+        //   meta: {
+        //     icon: 'ant-design',
+        //     link: 'https://www.antdv.com/docs/vue/introduce-cn/'
+        //   }
+        // },
+        // {
+        //   name: '使用文档',
+        //   path: 'document',
+        //   meta: {
+        //     icon: 'file-word',
+        //     link: 'https://iczer.gitee.io/vue-antd-admin-docs/'
+        //   }
+        // }
       ]
     },
   ]

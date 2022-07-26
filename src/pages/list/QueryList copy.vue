@@ -80,7 +80,7 @@
     </div>
     <div>
       <a-space class="operator">
-        <a-button @click="addNew" type="primary">新建</a-button>
+        <a-button @click="addNew" type="primary" v-auth="`add`">新建</a-button>
         <a-button >批量操作</a-button>
         <a-dropdown>
           <a-menu @click="handleMenuClick" slot="overlay">
@@ -111,10 +111,10 @@
           <a style="margin-right: 8px">
             <a-icon type="edit"/>编辑
           </a>
-          <a @click="deleteRecord(record.key)">
+          <a @click="deleteRecord(record.key)" v-auth="`delete`">
             <a-icon type="delete" />删除1
           </a>
-          <a @click="deleteRecord(record.key)" v-auth="`delete`">
+          <a @click="deleteRecord(record.key)" v-auth="`delete`" >
             <a-icon type="delete" />删除2
           </a>
           <router-link :to="`/list/article/${record.key}`" >详情</router-link>
@@ -186,9 +186,7 @@ export default {
       selectedRows: []
     }
   },
-  authorize: {
-    deleteRecord: 'delete'
-  },
+ 
   methods: {
     deleteRecord(key) {
       this.dataSource = this.dataSource.filter(item => item.key !== key)

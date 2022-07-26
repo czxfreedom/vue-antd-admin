@@ -39,4 +39,6 @@ module.exports = {
   GetManagementUserList: `${GO_BASE_URL}/api/managementUser/list`,
   CreateManagementUser:  `${GO_BASE_URL}/api/managementUser/create`,
   DeleteManagementUser:  `${GO_BASE_URL}/api/managementUser/delete`,
+  ManagementUserLOGIN: `${GO_BASE_URL}/api/managementUser/login`,
+
 }

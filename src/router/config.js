@@ -80,7 +80,7 @@ const options = {
         //   ]
         // },
         {
-          path: 'articles',
+          path: 'list/articles',
           name: '文章管理',
           meta: {
             authority: 'article',
@@ -99,7 +99,7 @@ const options = {
           component: () => import('@/pages/list/Article')
         },
         {
-          path: 'currencys',
+          path: 'list/currencys',
           name: '币种管理',
           meta: {
             authority: 'currency',
@@ -117,7 +117,7 @@ const options = {
           component: () => import('@/pages/list/Currency')
         },
         {
-          path: 'dapps',
+          path: 'list/dapps',
           name: 'DAPP管理',
           meta: {
             authority: 'dapp',

@@ -1,6 +1,7 @@
 //跨域代理前缀
 // const API_PROXY_PREFIX='/api'
-const GO_BASE_URL = process.env.NODE_ENV === 'production' ? process.env.GO_API_BASE_URL : "http://fwallet-api.f3.xyz"
+// const GO_BASE_URL = process.env.NODE_ENV === 'production' ? process.env.GO_API_BASE_URL : "http://fwallet-api.f3.xyz"
+const GO_BASE_URL ="http://fwallet-api.f3.xyz"
 
 module.exports = {
   GetArticleInfo: `${GO_BASE_URL}/api/article/info`,

@@ -2,7 +2,7 @@
   <a-card>
     <div>
       <a-space class="operator">
-        <a-button @click="addNew" type="primary" >新建</a-button>
+        <a-button @click="addNew" type="primary" v-auth="`add`">新建</a-button>
       </a-space>
       <standard-table
         :columns="columns"
